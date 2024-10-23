@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Dashboard</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>User ID</th>
+                <th>Color Blind Test</th>
+                <th>Long Sighted Test</th>
+                <th>Astigmatism Test</th>
+                <th>Response Time Test</th>
+                <th>License Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% results.forEach(result => { %>
+            <tr>
+                <td><%= result.user_id %></td>
+                <td><%= result.color_blind_test %></td>
+                <td><%= result.long_sighted_test %></td>
+                <td><%= result.astigmatism_test %></td>
+                <td><%= result.response_time_test %></td>
+                <td><%= result.license_test_status %></td>
+                <td>
+                    <a href="/test/edit/<%= result.id %>">Edit</a>
+                    <a href="/test/delete/<%= result.id %>">Delete</a>
+                </td>
+            </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</body>
+</html>

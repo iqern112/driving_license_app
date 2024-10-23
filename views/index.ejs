@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driving License Test Results</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Driving License Test Results</h1>
+        <% if (user) { %>
+            <p>Welcome, <%= user.first_name %> <%= user.last_name %>! | <a href="/auth/logout">Logout</a></p>
+        <% } else { %>
+            <p><a href="/auth/login">Login</a> | <a href="/register">Register</a></p>
+        <% } %>
+    </header>
+
+    <main>
+        <h2>Test Results Overview</h2>
+
+        <% if (user && user.role === 'admin') { %>
+            <a href="/results/new">Add New Test Result</a>
+        <% } %>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Physical Test</th>
+                    <th>Theory Test</th>
+                    <th>Practical Test</th>
+                    <th>Overall Status</th>
+                    <% if (user && user.role === 'admin') { %>
+                        <th>Actions</th>
+                    <% } %>
+                </tr>
+            </thead>
+            <tbody>
+                <% results.forEach(result => { %>
+                    <tr>
+                        <td><%= result.firstName %></td>
+                        <td><%= result.lastName %></td>
+                        <td><%= result.physical_test_status %></td>
+                        <td><%= result.theory_test_status %></td>
+                        <td><%= result.practical_test_status %></td>
+                        <td><%= result.overall_status %></td>
+                        <% if (user && user.role === 'admin') { %>
+                            <td>
+                                <a href="/results/edit/<%= result.id %>">Edit</a>
+                                <form action="/results/delete/<%= result.id %>" method="POST" style="display:inline;">
+                                    <button type="submit">Delete</button>
+                                </form>
+                            </td>
+                        <% } %>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Driving License System</p>
+    </footer>
+</body>
+</html>
